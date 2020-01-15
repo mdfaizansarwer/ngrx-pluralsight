@@ -17,13 +17,28 @@ import { PageNotFoundComponent } from './home/page-not-found.component';
 /* Feature Modules */
 import { UserModule } from './user/user.module';
 
+// NgRx
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule} from '@ngrx/store-devtools'
+import { environment } from 'src/environments/environment.prod';
+import { EffectsModule } from '@ngrx/effects';
+
 @NgModule({
   imports: [
     BrowserModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(ProductData),
     UserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument(
+      {
+        name: 'APM Demo app',
+        maxAge: 25,
+        logOnly: environment.production
+      }
+    ),
+    EffectsModule.forRoot([])
   ],
   declarations: [
     AppComponent,
